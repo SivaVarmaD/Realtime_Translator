@@ -1,0 +1,619 @@
+@prefix : <http://amrita.sony.org/terms/PolyhouseOntology#> .
+@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
+@prefix beo: <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix mep: <https://pi.pauwel.be/voc/distributionelement#> .
+@prefix om2: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@base <http://amrita.sony.org/terms/PolyhouseOntology#> .
+
+<http://amrita.sony.org/terms/PolyhouseOntology#> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/commonlyHasUnit
+om2:commonlyHasUnit rdf:type owl:ObjectProperty ;
+                    rdfs:range om2:Unit .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit
+om2:hasUnit rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/ns/sosa/hasResult
+sosa:hasResult rdf:type owl:ObjectProperty ;
+               rdfs:domain sosa:Observation ;
+               rdfs:range sosa:Result .
+
+
+###  http://www.w3.org/ns/sosa/isObservedBy
+sosa:isObservedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain sosa:ObservableProperty ;
+                  rdfs:range sosa:Sensor .
+
+
+###  http://www.w3.org/ns/sosa/madeObservation
+sosa:madeObservation rdf:type owl:ObjectProperty ;
+                     rdfs:domain sosa:Sensor ;
+                     rdfs:range sosa:Observation .
+
+
+###  http://www.w3.org/ns/ssn/hasSubSystem
+ssn:hasSubSystem rdf:type owl:ObjectProperty .
+
+
+###  https://w3id.org/bot#containsElement
+bot:containsElement rdf:type owl:ObjectProperty .
+
+
+###  https://w3id.org/bot#hasBuilding
+bot:hasBuilding rdf:type owl:ObjectProperty ;
+                rdfs:domain bot:Site ;
+                rdfs:range bot:Building .
+
+
+###  https://w3id.org/bot#hasElement
+bot:hasElement rdf:type owl:ObjectProperty ;
+               rdfs:domain bot:Zone ;
+               rdfs:range bot:Element .
+
+
+###  https://w3id.org/bot#hasSpace
+bot:hasSpace rdf:type owl:ObjectProperty ;
+             rdfs:domain bot:Storey ;
+             rdfs:range bot:Space .
+
+
+###  https://w3id.org/bot#hasStorey
+bot:hasStorey rdf:type owl:ObjectProperty ;
+              rdfs:domain bot:Building ;
+              rdfs:range bot:Storey .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue
+om2:hasNumericalValue rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://amrita.sony.org/terms#Turbovent
+<http://amrita.sony.org/terms#Turbovent> rdf:type owl:Class ;
+                                         rdfs:subClassOf mep:Fan .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#ESP32
+:ESP32 rdf:type owl:Class ;
+       rdfs:subClassOf ssn:System ,
+                       mep:Controller ;
+       owl:disjointWith :Spresense .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SHT25
+:SHT25 rdf:type owl:Class ;
+       rdfs:subClassOf ssn:System ,
+                       mep:Sensor-HUMIDITYSENSOR ,
+                       mep:Sensor-TEMPERATURESENSOR .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SIM7600
+:SIM7600 rdf:type owl:Class ;
+         rdfs:subClassOf ssn:System ,
+                         mep:CommunicationsAppliance .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SSN
+:SSN rdf:type owl:Class .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Spresense
+:Spresense rdf:type owl:Class ;
+           rdfs:subClassOf ssn:System ,
+                           mep:Controller .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/Quantity
+om2:Quantity rdf:type owl:Class .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/RelativeHumidity
+om2:RelativeHumidity rdf:type owl:Class ;
+                     rdfs:subClassOf om2:Quantity .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/Temperature
+om2:Temperature rdf:type owl:Class ;
+                rdfs:subClassOf om2:Quantity .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/Unit
+om2:Unit rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/sosa/ObservableProperty
+sosa:ObservableProperty rdf:type owl:Class ;
+                        rdfs:subClassOf :SSN .
+
+
+###  http://www.w3.org/ns/sosa/Observation
+sosa:Observation rdf:type owl:Class ;
+                 rdfs:subClassOf :SSN .
+
+
+###  http://www.w3.org/ns/sosa/Result
+sosa:Result rdf:type owl:Class ;
+            rdfs:subClassOf :SSN .
+
+
+###  http://www.w3.org/ns/sosa/Sensor
+sosa:Sensor rdf:type owl:Class ;
+            owl:equivalentClass mep:Sensor ;
+            rdfs:subClassOf :SSN ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty sosa:madeObservation ;
+                              owl:allValuesFrom sosa:Observation
+                            ] .
+
+
+###  http://www.w3.org/ns/ssn/System
+ssn:System rdf:type owl:Class ;
+           rdfs:subClassOf :SSN ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty ssn:hasSubSystem ;
+                             owl:allValuesFrom ssn:System
+                           ] .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#BuildingElement
+beo:BuildingElement rdf:type owl:Class ;
+                    rdfs:subClassOf bot:Element .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#Column
+beo:Column rdf:type owl:Class ;
+           rdfs:subClassOf beo:BuildingElement .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#Door
+beo:Door rdf:type owl:Class ;
+         rdfs:subClassOf beo:BuildingElement .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#Ramp
+beo:Ramp rdf:type owl:Class ;
+         rdfs:subClassOf beo:BuildingElement .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#Roof
+beo:Roof rdf:type owl:Class ;
+         rdfs:subClassOf beo:BuildingElement .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#Wall
+beo:Wall rdf:type owl:Class ;
+         rdfs:subClassOf beo:BuildingElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#AudioVisualAppliance
+mep:AudioVisualAppliance rdf:type owl:Class ;
+                         rdfs:subClassOf mep:FlowTerminal .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#AudioVisualAppliance-CAMERA
+mep:AudioVisualAppliance-CAMERA rdf:type owl:Class ;
+                                rdfs:subClassOf ssn:System ,
+                                                mep:AudioVisualAppliance .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#CommunicationsAppliance
+mep:CommunicationsAppliance rdf:type owl:Class ;
+                            rdfs:subClassOf mep:FlowTerminal .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#Controller
+mep:Controller rdf:type owl:Class ;
+               rdfs:subClassOf mep:DistributionControlElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#DistributionControlElement
+mep:DistributionControlElement rdf:type owl:Class ;
+                               rdfs:subClassOf mep:DistributionElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#DistributionElement
+mep:DistributionElement rdf:type owl:Class ;
+                        rdfs:subClassOf bot:Element .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#DistributionFlowElement
+mep:DistributionFlowElement rdf:type owl:Class ;
+                            rdfs:subClassOf mep:DistributionElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#Fan
+mep:Fan rdf:type owl:Class ;
+        rdfs:subClassOf beo:BuildingElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#FlowTerminal
+mep:FlowTerminal rdf:type owl:Class ;
+                 rdfs:subClassOf mep:DistributionFlowElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#Sensor
+mep:Sensor rdf:type owl:Class ;
+           rdfs:subClassOf mep:DistributionControlElement .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#Sensor-HUMIDITYSENSOR
+mep:Sensor-HUMIDITYSENSOR rdf:type owl:Class ;
+                          rdfs:subClassOf mep:Sensor .
+
+
+###  https://pi.pauwel.be/voc/distributionelement#Sensor-TEMPERATURESENSOR
+mep:Sensor-TEMPERATURESENSOR rdf:type owl:Class ;
+                             rdfs:subClassOf mep:Sensor .
+
+
+###  https://w3id.org/bot#Building
+bot:Building rdf:type owl:Class ;
+             rdfs:subClassOf bot:Zone ;
+             owl:disjointWith bot:Site ,
+                              bot:Space ,
+                              bot:Storey .
+
+
+###  https://w3id.org/bot#Element
+bot:Element rdf:type owl:Class .
+
+
+###  https://w3id.org/bot#Site
+bot:Site rdf:type owl:Class ;
+         rdfs:subClassOf bot:Zone ;
+         owl:disjointWith bot:Space ,
+                          bot:Storey .
+
+
+###  https://w3id.org/bot#Space
+bot:Space rdf:type owl:Class ;
+          rdfs:subClassOf bot:Zone ;
+          owl:disjointWith bot:Storey .
+
+
+###  https://w3id.org/bot#Storey
+bot:Storey rdf:type owl:Class ;
+           rdfs:subClassOf bot:Zone .
+
+
+###  https://w3id.org/bot#Zone
+bot:Zone rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Camera_1_P1
+:Camera_1_P1 rdf:type owl:NamedIndividual ,
+                      mep:AudioVisualAppliance ,
+                      mep:AudioVisualAppliance-CAMERA .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Camera_2_P1
+:Camera_2_P1 rdf:type owl:NamedIndividual ,
+                      mep:AudioVisualAppliance ,
+                      mep:AudioVisualAppliance-CAMERA .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Camera_3_P1
+:Camera_3_P1 rdf:type owl:NamedIndividual ,
+                      mep:AudioVisualAppliance ,
+                      mep:AudioVisualAppliance-CAMERA .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Column_1_P1
+:Column_1_P1 rdf:type owl:NamedIndividual ,
+                      beo:Column .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Door_1_P1
+:Door_1_P1 rdf:type owl:NamedIndividual ,
+                    beo:Door .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Grid_1
+:Grid_1 rdf:type owl:NamedIndividual ,
+                 bot:Space ;
+        bot:hasElement :Camera_1_P1 ,
+                       :Node_MCU_UART2_1_P1 ,
+                       :SHT25_1_P1 ,
+                       :Spresense_1_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Grid_2
+:Grid_2 rdf:type owl:NamedIndividual ,
+                 bot:Space ;
+        bot:hasElement :Camera_2_P1 ,
+                       :Node_MCU_Soft_Serial_1_P1 ,
+                       :Node_MCU_UART2_2_P1 ,
+                       :SHT25_2_P1 ,
+                       :SIM7600_1_P1 ,
+                       :Spresense_2_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Grid_3
+:Grid_3 rdf:type owl:NamedIndividual ,
+                 bot:Space ;
+        bot:hasElement :Camera_3_P1 ,
+                       :Node_MCU_UART2_3_P1 ,
+                       :SHT25_3_P1 ,
+                       :Spresense_3_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Humidity
+:Humidity rdf:type owl:NamedIndividual ,
+                   om2:RelativeHumidity ,
+                   sosa:ObservableProperty ;
+          om2:commonlyHasUnit om2:percent ;
+          sosa:isObservedBy :SHT25_1_P1 ,
+                            :SHT25_2_P1 ,
+                            :SHT25_3_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Node_MCU_Soft_Serial_1_P1
+:Node_MCU_Soft_Serial_1_P1 rdf:type owl:NamedIndividual ,
+                                    :ESP32 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Node_MCU_UART2_1_P1
+:Node_MCU_UART2_1_P1 rdf:type owl:NamedIndividual ,
+                              :ESP32 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Node_MCU_UART2_2_P1
+:Node_MCU_UART2_2_P1 rdf:type owl:NamedIndividual ,
+                              :ESP32 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Node_MCU_UART2_3_P1
+:Node_MCU_UART2_3_P1 rdf:type owl:NamedIndividual ,
+                              :ESP32 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Observation_1
+:Observation_1 rdf:type owl:NamedIndividual ,
+                        sosa:Observation ;
+               sosa:hasResult :Result_1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Observation_2
+:Observation_2 rdf:type owl:NamedIndividual ,
+                        sosa:Observation ;
+               sosa:hasResult :Result_2 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Observation_3
+:Observation_3 rdf:type owl:NamedIndividual ,
+                        sosa:Observation ;
+               sosa:hasResult :Result_3 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Observation_4
+:Observation_4 rdf:type owl:NamedIndividual ,
+                        sosa:Observation ;
+               sosa:hasResult :Result_4 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Observation_5
+:Observation_5 rdf:type owl:NamedIndividual ,
+                        sosa:Observation ;
+               sosa:hasResult :Result_5 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Observation_6
+:Observation_6 rdf:type owl:NamedIndividual ,
+                        sosa:Observation ;
+               sosa:hasResult :Result_6 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Polyhouse_1
+:Polyhouse_1 rdf:type owl:NamedIndividual ,
+                      bot:Building ;
+             bot:containsElement :Column_1_P1 ,
+                                 :Door_1_P1 ,
+                                 :Ramp_P1 ,
+                                 :Roof_1_P1 ,
+                                 :Turbovent_1_P1 ,
+                                 :Wall_1_P1 ;
+             bot:hasStorey :Storey_1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Ramp_P1
+:Ramp_P1 rdf:type owl:NamedIndividual ,
+                  beo:Ramp .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Result_1
+:Result_1 rdf:type owl:NamedIndividual ,
+                   sosa:Result ;
+          om2:hasUnit om2:degreeCelsius ;
+          om2:hasNumericalValue 26.77 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Result_2
+:Result_2 rdf:type owl:NamedIndividual ,
+                   sosa:Result ;
+          om2:hasUnit om2:percent ;
+          om2:hasNumericalValue 40.1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Result_3
+:Result_3 rdf:type owl:NamedIndividual ,
+                   sosa:Result ;
+          om2:hasUnit om2:degreeCelsius ;
+          om2:hasNumericalValue 30.77 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Result_4
+:Result_4 rdf:type owl:NamedIndividual ,
+                   sosa:Result ;
+          om2:hasUnit om2:percent ;
+          om2:hasNumericalValue 38.1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Result_5
+:Result_5 rdf:type owl:NamedIndividual ,
+                   sosa:Result ;
+          om2:hasUnit om2:degreeCelsius ;
+          om2:hasNumericalValue 22.77 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Result_6
+:Result_6 rdf:type owl:NamedIndividual ,
+                   sosa:Result ;
+          om2:hasUnit om2:percent ;
+          om2:hasNumericalValue 38.1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Roof_1_P1
+:Roof_1_P1 rdf:type owl:NamedIndividual ,
+                    beo:Roof .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SHT25_1_P1
+:SHT25_1_P1 rdf:type owl:NamedIndividual ,
+                     :SHT25 ,
+                     sosa:Sensor ;
+            sosa:madeObservation :Observation_1 ,
+                                 :Observation_2 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SHT25_2_P1
+:SHT25_2_P1 rdf:type owl:NamedIndividual ,
+                     :SHT25 ,
+                     sosa:Sensor ;
+            sosa:madeObservation :Observation_3 ,
+                                 :Observation_4 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SHT25_3_P1
+:SHT25_3_P1 rdf:type owl:NamedIndividual ,
+                     :SHT25 ,
+                     sosa:Sensor ;
+            sosa:madeObservation :Observation_5 ,
+                                 :Observation_6 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#SIM7600_1_P1
+:SIM7600_1_P1 rdf:type owl:NamedIndividual ,
+                       :SIM7600 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Site_P1
+:Site_P1 rdf:type owl:NamedIndividual ,
+                  bot:Site ;
+         bot:hasBuilding :Polyhouse_1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Spresense_1_P1
+:Spresense_1_P1 rdf:type owl:NamedIndividual ,
+                         :Spresense ,
+                         ssn:System ;
+                ssn:hasSubSystem :Camera_1_P1 ,
+                                 :Node_MCU_UART2_1_P1 ,
+                                 :SHT25_1_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Spresense_2_P1
+:Spresense_2_P1 rdf:type owl:NamedIndividual ,
+                         :Spresense ,
+                         ssn:System ;
+                ssn:hasSubSystem :Camera_2_P1 ,
+                                 :Node_MCU_UART2_2_P1 ,
+                                 :SHT25_2_P1 ,
+                                 :SIM7600_1_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Spresense_3_P1
+:Spresense_3_P1 rdf:type owl:NamedIndividual ,
+                         :Spresense ,
+                         ssn:System ;
+                ssn:hasSubSystem :Camera_3_P1 ,
+                                 :Node_MCU_UART2_3_P1 ,
+                                 :SHT25_3_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Storey_1
+:Storey_1 rdf:type owl:NamedIndividual ,
+                   bot:Storey ;
+          bot:hasSpace :Grid_1 ,
+                       :Grid_2 ,
+                       :Grid_3 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Temperature
+:Temperature rdf:type owl:NamedIndividual ,
+                      om2:Temperature ,
+                      sosa:ObservableProperty ;
+             om2:commonlyHasUnit om2:degreeCelsius ;
+             sosa:isObservedBy :SHT25_1_P1 ,
+                               :SHT25_2_P1 ,
+                               :SHT25_3_P1 .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Turbovent_1_P1
+:Turbovent_1_P1 rdf:type owl:NamedIndividual ,
+                         <http://amrita.sony.org/terms#Turbovent> .
+
+
+###  http://amrita.sony.org/terms/PolyhouseOntology#Wall_1_P1
+:Wall_1_P1 rdf:type owl:NamedIndividual ,
+                    beo:Wall .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/degreeCelsius
+om2:degreeCelsius rdf:type owl:NamedIndividual ,
+                           om2:Unit .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/percent
+om2:percent rdf:type owl:NamedIndividual ,
+                     om2:Unit .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :ESP32
+                :SHT25
+                :SIM7600
+                mep:AudioVisualAppliance-CAMERA
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :SHT25
+                :SIM7600
+                :Spresense
+                mep:AudioVisualAppliance-CAMERA
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

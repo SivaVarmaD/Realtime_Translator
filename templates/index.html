@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual Translator</title>
+    <style>
+        :root {
+    --background-dark: #121827;
+    --background-darker: #0d1117;
+    --text-primary: #e6e6e6;
+    --text-secondary: #a0aec0;
+    --gradient-primary: linear-gradient(135deg, #8A4FFF 0%, #4E53FF 100%);
+    --gradient-secondary: linear-gradient(135deg, #FF6B8A 0%, #FF8C58 100%);
+    --accent-color: #1f2937;
+    --border-color: #2d3748;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--background-dark);
+    background-image: 
+        linear-gradient(to right, rgba(30, 41, 59, 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    margin: 0;
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.7rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-container {
+    background: var(--background-darker);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 35px;
+    margin-bottom: 2.5rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.section-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--gradient-primary);
+}
+
+.section-container:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+select {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                      linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+select:focus {
+    outline: none;
+    border-color: #8A4FFF;
+    box-shadow: 0 0 0 4px rgba(138, 79, 255, 0.2);
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+}
+
+button {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 14px 22px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(138, 79, 255, 0.2), 0 3px 6px rgba(138, 79, 255, 0.1);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.recording-active {
+    background: var(--gradient-secondary) !important;
+}
+
+#result, #translation-result {
+    background-color: var(--accent-color);
+    border-left: 6px solid #8A4FFF;
+    padding: 25px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    min-height: 80px;
+    font-size: 0.95rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: var(--text-secondary);
+}
+
+.result-section p {
+    margin: 12px 0;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.result-section strong {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+audio {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    filter: invert(0.8) hue-rotate(180deg);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <h1>Multilingual Translator</h1>
+    
+    <div class="section-container">
+        <form id="recording-form">
+            <label for="input_language">Select Input Language:</label>
+            <select id="input_language" name="input_language">
+                {% for code, language in input_languages.items() %}
+                    <option value="{{ code }}">{{ language }}</option>
+                {% endfor %}
+            </select>
+            
+            <div class="button-group">
+                <button type="button" id="start-recording">Start Recording</button>
+                <button type="button" id="stop-recording">Stop Recording</button>
+            </div>
+        </form>
+        
+        <div id="result"></div>
+    </div>
+
+    <h2>Translate to Another Language</h2>
+    <div class="section-container">
+        <form id="translation-form">
+            <label for="target_language">Select Target Language:</label>
+            <select id="target_language" name="target_language">
+                {% for code, language in output_languages.items() %}
+                    <option value="{{ code }}">{{ language }}</option>
+                {% endfor %}
+            </select>
+            
+            <div class="button-group">
+                <button type="button" id="translate-button">Translate</button>
+                <button type="button" id="speak-button">Speak</button>
+            </div>
+        </form>
+        
+        <div id="translation-result"></div>
+    </div>
+
+    <script>
+        let currentTranslatedText = "";
+        let currentSourceText = "";
+        let currentEnglishText = "";
+        let currentTargetLanguage = "";
+
+        // Start recording
+        document.getElementById('start-recording').addEventListener('click', function() {
+            this.classList.add('recording-active');
+            document.getElementById('stop-recording').classList.remove('recording-active');
+            
+            fetch('/start-recording', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerHTML = '<p>Recording started...</p>';
+                });
+        });
+
+        // Stop recording
+        document.getElementById('stop-recording').addEventListener('click', function() {
+            this.classList.add('recording-active');
+            document.getElementById('start-recording').classList.remove('recording-active');
+            
+            const inputLanguage = document.getElementById('input_language').value;
+            const formData = new FormData();
+            formData.append('input_language', inputLanguage);
+
+            fetch('/stop-recording', { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        currentSourceText = data.source_text;
+                        currentEnglishText = data.english_text;
+                        document.getElementById('result').innerHTML = `
+                            <div class="result-section">
+                                <p><strong>Source Text (${inputLanguage}):</strong> ${data.source_text}</p>
+                                <p><strong>English Translation:</strong> ${data.english_text}</p>
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${data.message}</p>`;
+                    }
+                });
+        });
+
+        // Translate to target language
+        document.getElementById('translate-button').addEventListener('click', function() {
+            const targetLanguage = document.getElementById('target_language').value;
+
+            fetch('/translate-to-language', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ target_language: targetLanguage }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        currentTranslatedText = data.translated_text;
+                        currentTargetLanguage = data.target_language;
+                        document.getElementById('translation-result').innerHTML = `
+                            <div class="result-section">
+                                <p><strong>English Text:</strong> ${currentEnglishText}</p>
+                                <p><strong>Translated Text (${data.target_language}):</strong> ${data.translated_text}</p>
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('translation-result').innerHTML = `<p style="color: red;">Error: ${data.message}</p>`;
+                    }
+                });
+        });
+
+        // Text to speech
+        document.getElementById('speak-button').addEventListener('click', function() {
+            const targetLanguage = document.getElementById('target_language').value;
+
+            if (!currentTranslatedText) {
+                alert("Please translate some text first!");
+                return;
+            }
+
+            fetch('/text-to-speech', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    text: currentTranslatedText,
+                    target_language: targetLanguage 
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        const audioElement = document.createElement('audio');
+                        audioElement.controls = true;
+                        audioElement.src = data.audio_url;
+                        const resultDiv = document.getElementById('translation-result');
+                        resultDiv.innerHTML = `
+                            <div class="result-section">
+                                <p><strong>English Text:</strong> ${currentEnglishText}</p>
+                                <p><strong>Translated Text (${currentTargetLanguage}):</strong> ${currentTranslatedText}</p>
+                            </div>
+                        `;
+                        resultDiv.appendChild(audioElement);
+                        audioElement.play();
+                    } else {
+                        document.getElementById('translation-result').innerHTML = `<p style="color: red;">Error: ${data.message}</p>`;
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
